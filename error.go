@@ -14,6 +14,7 @@ var (
 	METHOD_NOT_ALLOWED = errors.New("METHOD NOT ALLOWED")
 	UNKNOWN            = errors.New("UNKNOWN")
 	DATA_EXIST         = errors.New("DATA EXIST")
+	MODEL_NULL         = errors.New("MODEL NULL")
 )
 
 func GetCode(e error) int {
@@ -36,8 +37,11 @@ func GetCode(e error) int {
 		return 405
 	case UNKNOWN:
 		return 407
+	case MODEL_NULL:
+		return 303
+	default:
+		return 407
 	}
-	return -1
 }
 
 func GetError(code int) error {
@@ -60,6 +64,9 @@ func GetError(code int) error {
 		return UNKNOWN
 	case 409:
 		return DATA_EXIST
+	case 303:
+		return MODEL_NULL
+	default:
+		return UNKNOWN
 	}
-	return UNKNOWN
 }
