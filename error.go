@@ -70,3 +70,10 @@ func GetError(code int) error {
 		return UNKNOWN
 	}
 }
+
+func GetString(e error) string {
+	if e == nil {
+		return SUCCESS.Error()
+	}
+	return e.Error()
+}
