@@ -15,6 +15,8 @@ var (
 	UNKNOWN            = errors.New("UNKNOWN")
 	DATA_EXIST         = errors.New("DATA EXIST")
 	MODEL_NULL         = errors.New("MODEL NULL")
+	DATA_CORRUPT       = errors.New("DATA_CORRUPT")
+	DATA_EMPTY         = errors.New("DATA_EMPTY")
 )
 
 func GetCode(e error) int {
@@ -39,6 +41,8 @@ func GetCode(e error) int {
 		return 407
 	case MODEL_NULL:
 		return 303
+	case DATA_CORRUPT:
+		return 304
 	default:
 		return 407
 	}
@@ -66,6 +70,8 @@ func GetError(code int) error {
 		return DATA_EXIST
 	case 303:
 		return MODEL_NULL
+	case 304:
+		return DATA_CORRUPT
 	default:
 		return UNKNOWN
 	}
