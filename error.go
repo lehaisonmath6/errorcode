@@ -5,18 +5,28 @@ import (
 )
 
 var (
-	SUCCESS            = errors.New("SUCCESS")
-	DATABASE_TIMEOUT   = errors.New("DATABASE TIMEOUT")
-	UNAUTHORIZED       = errors.New("UNAUTHORIZED")
-	BAD_REQUEST        = errors.New("BAD REQUEST")
-	NOT_FOUND          = errors.New("NOT FOUND")
-	NOT_ACCEPTABLE     = errors.New("NOT ACCEPTABLE")
-	METHOD_NOT_ALLOWED = errors.New("METHOD NOT ALLOWED")
-	UNKNOWN            = errors.New("UNKNOWN")
-	DATA_EXIST         = errors.New("DATA EXIST")
-	MODEL_NULL         = errors.New("MODEL NULL")
-	DATA_CORRUPT       = errors.New("DATA_CORRUPT")
-	DATA_EMPTY         = errors.New("DATA_EMPTY")
+	SUCCESS                   = errors.New("SUCCESS")
+	DATABASE_TIMEOUT          = errors.New("DATABASE TIMEOUT")
+	UNAUTHORIZED              = errors.New("UNAUTHORIZED")
+	BAD_REQUEST               = errors.New("BAD REQUEST")
+	NOT_FOUND                 = errors.New("NOT FOUND")
+	NOT_ACCEPTABLE            = errors.New("NOT ACCEPTABLE")
+	METHOD_NOT_ALLOWED        = errors.New("METHOD NOT ALLOWED")
+	NOT_PERMITTED             = errors.New("NOT PERMITTED")
+	NOT_PERMISSIONS           = errors.New("NOT_PERMISSIONS")
+	UNKNOWN                   = errors.New("UNKNOWN")
+	DATA_EXIST                = errors.New("DATA EXIST")
+	MODEL_NULL                = errors.New("MODEL NULL")
+	DATA_CORRUPT              = errors.New("DATA_CORRUPT")
+	DATA_EMPTY                = errors.New("DATA_EMPTY")
+	StatusInternalServerError = errors.New("StatusInternalServerError")
+	StatusTooManyRequests     = errors.New("StatusTooManyRequests")
+	StatusForbidden           = errors.New("StatusForbidden")
+	StatusProcessing          = errors.New("StatusProcessing")
+	StatusNoContent           = errors.New("StatusNoContent")
+	StatusNotModified         = errors.New("StatusNotModified")
+	StatusConflict            = errors.New("StatusConflict")
+	StatusNotImplemented      = errors.New("StatusNotImplemented")
 )
 
 func GetCode(e error) int {
@@ -42,7 +52,27 @@ func GetCode(e error) int {
 	case MODEL_NULL:
 		return 303
 	case DATA_CORRUPT:
+		return 309
+	case StatusInternalServerError:
+		return 500
+	case StatusTooManyRequests:
+		return 429
+	case StatusForbidden:
+		return 403
+	case StatusProcessing:
+		return 102
+	case StatusNoContent:
+		return 204
+	case StatusNotModified:
 		return 304
+	case StatusConflict:
+		return 409
+	case StatusNotImplemented:
+		return 501
+	case NOT_PERMISSIONS:
+		return 507
+	case NOT_PERMITTED:
+		return 508
 	default:
 		return 407
 	}
@@ -70,7 +100,7 @@ func GetError(code int) error {
 		return DATA_EXIST
 	case 303:
 		return MODEL_NULL
-	case 304:
+	case 309:
 		return DATA_CORRUPT
 	default:
 		return UNKNOWN
