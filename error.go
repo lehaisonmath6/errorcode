@@ -15,8 +15,10 @@ var (
 	NOT_PERMITTED             = errors.New("NOT PERMITTED")
 	NOT_PERMISSIONS           = errors.New("NOT_PERMISSIONS")
 	UNKNOWN                   = errors.New("UNKNOWN")
+	TOKEN_EXPIRED             = errors.New("TOKEN EXPIRED")
 	DATA_EXIST                = errors.New("DATA EXIST")
 	MODEL_NULL                = errors.New("MODEL NULL")
+	INVALID_PARAMS            = errors.New("INVALID PARAMS")
 	DATA_CORRUPT              = errors.New("DATA_CORRUPT")
 	DATA_EMPTY                = errors.New("DATA_EMPTY")
 	StatusInternalServerError = errors.New("StatusInternalServerError")
@@ -73,6 +75,10 @@ func GetCode(e error) int {
 		return 507
 	case NOT_PERMITTED:
 		return 508
+	case INVALID_PARAMS:
+		return 509
+	case TOKEN_EXPIRED:
+		return 510
 	default:
 		return 407
 	}
